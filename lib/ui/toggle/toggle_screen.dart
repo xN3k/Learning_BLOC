@@ -34,16 +34,19 @@ class _ToggleScreenState extends State<ToggleScreen> {
                   'Notification',
                   style: TextStyle(fontSize: 20),
                 ),
-                BlocBuilder<SwitchBloc, SwitchState>(builder: (context, state) {
-                  return Switch(
-                    value: state.isSwitch,
-                    onChanged: (newValue) {
-                      context
-                          .read<SwitchBloc>()
-                          .add(EnableOrDisableNotification());
-                    },
-                  );
-                }),
+                BlocBuilder<SwitchBloc, SwitchState>(
+                    buildWhen: (previous, current) =>
+                        previous.isSwitch != current.isSwitch,
+                    builder: (context, state) {
+                      return Switch(
+                        value: state.isSwitch,
+                        onChanged: (newValue) {
+                          context
+                              .read<SwitchBloc>()
+                              .add(EnableOrDisableNotification());
+                        },
+                      );
+                    }),
               ],
             ),
             const SizedBox(
@@ -58,16 +61,21 @@ class _ToggleScreenState extends State<ToggleScreen> {
             const SizedBox(
               height: 20,
             ),
-            BlocBuilder<SwitchBloc, SwitchState>(builder: (context, state) {
-              return Slider(
-                value: state.slider,
-                min: 0.0,
-                max: 1.0,
-                onChanged: (value) {
-                  context.read<SwitchBloc>().add(SliderEvent(slider: value));
-                },
-              );
-            }),
+            BlocBuilder<SwitchBloc, SwitchState>(
+                buildWhen: (previous, current) =>
+                    previous.slider != current.slider,
+                builder: (context, state) {
+                  return Slider(
+                    value: state.slider,
+                    min: 0.0,
+                    max: 1.0,
+                    onChanged: (value) {
+                      context
+                          .read<SwitchBloc>()
+                          .add(SliderEvent(slider: value));
+                    },
+                  );
+                }),
           ],
         ),
       ),

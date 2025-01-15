@@ -6,7 +6,7 @@ class CounterState extends Equatable {
     this.counter = 0,
   });
 
-  CounterState copyWith({int? counter, bool? isSwitchOn}) {
+  CounterState copyWith({int? counter}) {
     return CounterState(
       counter: counter ?? this.counter,
     );

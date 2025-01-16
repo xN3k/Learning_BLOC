@@ -1,6 +1,7 @@
 import 'package:bloc_app/bloc/favorite/favorite_bloc.dart';
 import 'package:bloc_app/bloc/favorite/favorite_event.dart';
 import 'package:bloc_app/bloc/favorite/favorite_state.dart';
+import 'package:bloc_app/models/favorite_item_model.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -45,6 +46,20 @@ class _FavoriteScreenState extends State<FavoriteScreen> {
                     return Card(
                       child: ListTile(
                         title: Text(item.value.toString()),
+                        trailing: IconButton(
+                            onPressed: () {
+                              FavoriteItemModel itemModel = FavoriteItemModel(
+                                id: item.id,
+                                value: item.value,
+                                isFavorite: item.isFavorite ? false : true,
+                              );
+                              context
+                                  .read<FavoriteBloc>()
+                                  .add(FavoriteItem(item: itemModel));
+                            },
+                            icon: Icon(item.isFavorite
+                                ? Icons.favorite
+                                : Icons.favorite_border)),
                       ),
                     );
                   },

@@ -1,3 +1,4 @@
+import 'package:bloc_app/models/favorite_item_model.dart';
 import 'package:equatable/equatable.dart';
 
 abstract class FavoriteEvent extends Equatable {
@@ -7,3 +8,11 @@ abstract class FavoriteEvent extends Equatable {
 }
 
 class FetchFavoriteList extends FavoriteEvent {}
+
+class FavoriteItem extends FavoriteEvent {
+  final FavoriteItemModel item;
+
+  const FavoriteItem({
+    required this.item,
+  });
+}
